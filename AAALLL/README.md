@@ -6,12 +6,17 @@
 
 Проект состоит из следующих функций:
 
--   `def get_mask_card_number(card_number: Union[str]) -> Union[str]`: Маскирует номер карты, показывая только первые 6 и последние 4 цифры.
+`def get_mask_card_number(card_number: Union[str]) -> Union[str]`: Маскирует номер карты, показывая только первые 6 и последние 4 цифры.
 -   `def get_mask_account(account_number: Union[str]) -> Union[str]:`: Маскирует номер счета, показывая только последние 4 цифры.
 -   `def mask_account_card(input_string: str) -> str`: Обрабатывает информацию о карте или счете клиента и маскирует номер.
 -   `def get_date(date_string: str) -> str:`: Преобразует дату в формат 'ДД.ММ.ГГГГ'.
 -   `def filter_by_state(transactions: List[Dict], state: str = "EXECUTED") -> List[Dict]`: Фильтрует список словарей по значению ключа 'state'.
 -   `def sort_by_date(transactions: List[Dict], descending: bool = True) -> List[Dict]`: Сортирует список словарей по дате.
+-   `def filter_by_currency(transactions: List[Dict], currency: str) -> Generator[Dict, None, None]`: Фильтрует транзакции по заданной валюте.
+-   `def transaction_descriptions(transactions: List[Dict]) -> Generator[str, None, None]`: Генерирует описания транзакций по очереди.
+-   `def card_number_generator(start: int, stop: int) -> Generator[str, None, None]`: Генерирует номера банковских карт в формате XXXX XXXX XXXX XXXX.
+
+
 
 ## Установка
 
