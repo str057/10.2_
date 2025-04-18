@@ -10,7 +10,9 @@ def filter_by_state(transactions: List[Dict], state: str = "EXECUTED") -> List[D
     :param state: Значение для фильтрации по ключу 'state'.
     :return: Новый список словарей, содержащий только те, у которых ключ 'state' соответствует указанному значению.
     """
-    return [transaction for transaction in transactions if transaction.get("state") == state]
+    return [
+        transaction for transaction in transactions if transaction.get("state") == state
+    ]
 
 
 def sort_by_date(transactions: List[Dict], descending: bool = True) -> List[Dict]:

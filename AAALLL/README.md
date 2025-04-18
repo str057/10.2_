@@ -15,6 +15,11 @@
 -   `def filter_by_currency(transactions: List[Dict], currency: str) -> Generator[Dict, None, None]`: Фильтрует транзакции по заданной валюте.
 -   `def transaction_descriptions(transactions: List[Dict]) -> Generator[str, None, None]`: Генерирует описания транзакций по очереди.
 -   `def card_number_generator(start: int, stop: int) -> Generator[str, None, None]`: Генерирует номера банковских карт в формате XXXX XXXX XXXX XXXX.
+-      '**add(a: int, b: int) -> int**' :  Принимает два целых числа и возвращает их сумму. Логирует сообщение "add ok" при успешном выполнении.
+-     **divide(a: int, b: int) -> float**:  - **divide(a: int, b: int) -> float**: 
+  - Принимает два целых числа и возвращает результат деления первого на второе.
+  - Логирует сообщение "divide ok" при успешном выполнении.
+  - В случае деления на ноль, выбрасывает исключение `ZeroDivisionError` и логирует сообщение об ошибке.
 
 
 

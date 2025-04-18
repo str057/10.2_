@@ -5,7 +5,9 @@ def get_mask_card_number(card_number: Union[str]) -> Union[str]:
     """Функция принимает на вход номер карты в виде числа и
     возвращает маску номера по правилу XXXX XX** **** XXXX"""
     if card_number.isdigit() and len(card_number) == 16:
-        masked_number = card_number[0:4] + " " + card_number[4:6] + "** **** " + card_number[-4:]
+        masked_number = (
+            card_number[0:4] + " " + card_number[4:6] + "** **** " + card_number[-4:]
+        )
         return masked_number
     else:
         return "Проверьте правильность введенного номера карты!"
