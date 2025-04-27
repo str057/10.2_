@@ -1,20 +1,25 @@
 import os
 import requests
-from typing import Dict
+from typing import Dict, Any
 
 
-def convert_currency(transaction: Dict[str, float]) -> float:
+def convert_currency(transaction: Dict[str, Any]) -> float:
     """
     Конвертирует сумму транзакции в рубли.
 
-    :param transaction: Словарь с данными о транзакции, должен содержать ключи 'amount' и 'currency'.
+    :param transaction: Словарь с данными о транзакции, должен содержать ключи 'operationAmount' с 'amount' и 'currency'.
     :return: Сумма транзакции в рублях. Если валюта не поддерживается, возвращает сумму без изменений.
     """
-    amount = transaction.get("amount")
-    currency = transaction.get("currency")
+    # Извлечение данных из вложенного словаря operationAmount
+    operation_amount = transaction.get("operationAmount", {})
+    amount = operation_amount.get("amount")
+    currency = operation_amount.get("currency", {}).get("code")
 
     if amount is None or currency is None:
         raise ValueError("Transaction must contain 'amount' and 'currency' keys.")
+
+    # Преобразуем amount в float
+    amount = float(amount)
 
     if currency in ["USD", "EUR"]:
         api_key = os.getenv("API_KEY")
@@ -37,4 +42,4 @@ def convert_currency(transaction: Dict[str, float]) -> float:
         except requests.RequestException as e:
             raise RuntimeError(f"Error fetching exchange rate: {e}")
 
-    return float(amount)
+    return amount

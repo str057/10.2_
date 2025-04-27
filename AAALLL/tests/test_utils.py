@@ -3,7 +3,9 @@ import os
 import pytest
 import requests
 from AAALLL.src.utils import read_json_file  # Убедитесь, что путь к модулю правильный
-from AAALLL.src.external_api import convert_currency  # Замените на правильный путь к вашему модулю
+from AAALLL.src.external_api import (
+    convert_currency,
+)  # Замените на правильный путь к вашему модулю
 
 
 # Тесты для функции чтения JSON-файла
@@ -36,7 +38,12 @@ def test_read_json_file_invalid_json():
 
 # Тесты для функции конвертации валюты
 def test_convert_currency_usd():
-    transaction = {"amount": 100, "currency": "USD"}
+    transaction = {
+        "operationAmount": {
+            "amount": "100",  # amount должен быть строкой
+            "currency": {"name": "USD", "code": "USD"},
+        }
+    }
     mock_response = {"rates": {"RUB": 75.0}}
 
     with patch("AAALLL.src.external_api.requests.get") as mock_get:
@@ -49,7 +56,12 @@ def test_convert_currency_usd():
 
 
 def test_convert_currency_eur():
-    transaction = {"amount": 100, "currency": "EUR"}
+    transaction = {
+        "operationAmount": {
+            "amount": "100",  # amount должен быть строкой
+            "currency": {"name": "EUR", "code": "EUR"},
+        }
+    }
     mock_response = {"rates": {"RUB": 85.0}}
 
     with patch("AAALLL.src.external_api.requests.get") as mock_get:
@@ -62,18 +74,30 @@ def test_convert_currency_eur():
 
 
 def test_convert_currency_invalid_api():
-    transaction = {"amount": 100, "currency": "USD"}
+    transaction = {
+        "operationAmount": {
+            "amount": "100",  # amount должен быть строкой
+            "currency": {"name": "USD", "code": "USD"},
+        }
+    }
 
     with patch("AAALLL.src.external_api.requests.get") as mock_get:
         mock_get.side_effect = requests.RequestException("API error")
         os.environ["API_KEY"] = "test_api_key"
 
-        with pytest.raises(RuntimeError, match="Error fetching exchange rate: API error"):
+        with pytest.raises(
+            RuntimeError, match="Error fetching exchange rate: API error"
+        ):
             convert_currency(transaction)
 
 
 def test_convert_currency_missing_api_key():
-    transaction = {"amount": 100, "currency": "USD"}
+    transaction = {
+        "operationAmount": {
+            "amount": "100",  # amount должен быть строкой
+            "currency": {"name": "USD", "code": "USD"},
+        }
+    }
     del os.environ["API_KEY"]  # Удаляем переменную окружения API_KEY
 
     with pytest.raises(ValueError, match="API_KEY environment variable is not set."):
@@ -81,7 +105,12 @@ def test_convert_currency_missing_api_key():
 
 
 def test_convert_currency_invalid_currency():
-    transaction = {"amount": 100, "currency": "GBP"}  # Неподдерживаемая валюта
+    transaction = {
+        "operationAmount": {
+            "amount": "100",  # amount должен быть строкой
+            "currency": {"name": "GBP", "code": "GBP"},  # Неподдерживаемая валюта
+        }
+    }
 
     result = convert_currency(transaction)
-    assert result == 100.0  # Сумма должна остаться без измененийflake
+    assert result == 100.0  # Сумма должна остаться без изменений

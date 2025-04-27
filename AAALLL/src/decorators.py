@@ -44,7 +44,9 @@ def log(filename=None):
                 logging.info(f"{func.__name__} ok")
                 return result
             except Exception as e:
-                logging.error(f"{func.__name__} error: {str(e)}. Inputs: {args}, {kwargs}")
+                logging.error(
+                    f"{func.__name__} error: {str(e)}. Inputs: {args}, {kwargs}"
+                )
                 raise
 
         return wrapper

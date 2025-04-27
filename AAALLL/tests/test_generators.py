@@ -51,7 +51,9 @@ def transactions():
 def test_filter_by_currency(transactions):
     usd_transactions = list(filter_by_currency(transactions, "USD"))
     assert len(usd_transactions) == 2
-    assert all(tx["operationAmount"]["currency"]["code"] == "USD" for tx in usd_transactions)
+    assert all(
+        tx["operationAmount"]["currency"]["code"] == "USD" for tx in usd_transactions
+    )
 
 
 def test_transaction_descriptions(transactions):
