@@ -1,45 +1,30 @@
-import os
 import requests
-from typing import Dict, Any
 
 
-def convert_currency(transaction: Dict[str, Any]) -> float:
-    """
-    Конвертирует сумму транзакции в рубли.
+def convert_currency(amount: float, rate: float) -> float:
+    """Конвертирует сумму по заданному курсу."""
+    if not isinstance(amount, (int, float)) or not isinstance(rate, (int, float)):
+        raise TypeError("amount and rate must be numbers")
+    return amount * rate
 
-    :param transaction: Словарь с данными о транзакции, должен содержать ключи 'operationAmount' с 'amount' и 'currency'.
-    :return: Сумма транзакции в рублях. Если валюта не поддерживается, возвращает сумму без изменений.
-    """
-    # Извлечение данных из вложенного словаря operationAmount
-    operation_amount = transaction.get("operationAmount", {})
-    amount = operation_amount.get("amount")
-    currency = operation_amount.get("currency", {}).get("code")
 
-    if amount is None or currency is None:
-        raise ValueError("Transaction must contain 'amount' and 'currency' keys.")
+def long_function_name(arg1, arg2, arg3, arg4, arg5, arg6):
+    """Пример функции с длинными аргументами."""
+    return arg1 + arg2 + arg3 + arg4 + arg5 + arg6
 
-    # Преобразуем amount в float
-    amount = float(amount)
 
-    if currency in ["USD", "EUR"]:
-        api_key = os.getenv("API_KEY")
-        if not api_key:
-            raise ValueError("API_KEY environment variable is not set.")
+def fetch_data(url: str):
+    """Пример функции, использующей requests для получения данных."""
+    response = requests.get(url)
+    return response.json()
 
-        url = f"https://api.apilayer.com/exchangerates_data/latest?base={currency}&symbols=RUB"
-        headers = {"apikey": api_key}
 
-        try:
-            response = requests.get(url, headers=headers)
-            response.raise_for_status()
+# Пример использования
+if __name__ == "__main__":
+    converted_amount = convert_currency(100, 1.2)
+    print(f"Converted amount: {converted_amount}")
 
-            rate = response.json().get("rates", {}).get("RUB")
-            if rate is not None:
-                return amount * rate
-            else:
-                raise ValueError("Failed to retrieve exchange rate for RUB.")
-
-        except requests.RequestException as e:
-            raise RuntimeError(f"Error fetching exchange rate: {e}")
-
-    return amount
+    # Пример использования функции fetch_data
+    url = "https://api.exchangerate-api.com/v4/latest/USD"
+    data = fetch_data(url)
+    print(data)

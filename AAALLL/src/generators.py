@@ -22,3 +22,8 @@ def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
         yield f"{number:016d}"[:4] + " " + f"{number:016d}"[
             4:8
         ] + " " + f"{number:016d}"[8:12] + " " + f"{number:016d}"[12:16]
+
+
+def generate_numbers(n):
+    """Генерирует список из n чисел."""
+    return list(range(n))
