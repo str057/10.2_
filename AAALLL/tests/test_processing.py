@@ -1,5 +1,9 @@
 import pytest
-from AAALLL.src.processing import filter_by_state, sort_by_date  # Замените на правильный путь к вашему модулю
+from AAALLL.src.processing import (
+    filter_by_state,
+    sort_by_date,
+)  # Замените на правильный путь к вашему модулю
+
 
 @pytest.fixture
 def transactions():
@@ -11,6 +15,7 @@ def transactions():
         {"id": 4, "date": "2023-01-01", "state": "EXECUTED"},
         {"id": 5, "date": "2023-01-04", "state": "CANCELED"},
     ]
+
 
 def test_filter_by_state(transactions):
     """Тестирование функции фильтрации по состоянию."""
@@ -27,7 +32,6 @@ def test_filter_by_state(transactions):
     assert len(unknown_transactions) == 0
 
 
-
 def test_sort_by_date_with_same_dates():
     """Тестирование сортировки при одинаковых датах."""
     transactions_with_same_dates = [
@@ -37,16 +41,19 @@ def test_sort_by_date_with_same_dates():
     sorted_transactions = sort_by_date(transactions_with_same_dates, descending=True)
     assert [tx["id"] for tx in sorted_transactions] == [2, 1]  # Проверяем порядок по id
 
+
 def test_sort_by_date_empty_list():
     """Тестирование сортировки пустого списка."""
     sorted_transactions = sort_by_date([], descending=True)
     assert sorted_transactions == []
+
 
 def test_filter_by_state_empty_list():
     """Тестирование фильтрации пустого списка."""
     empty_transactions = []
     filtered_transactions = filter_by_state(empty_transactions, "EXECUTED")
     assert filtered_transactions == []
+
 
 def test_sort_by_date_single_transaction():
     """Тестирование сортировки списка с одной транзакцией."""
