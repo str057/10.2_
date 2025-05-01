@@ -22,8 +22,8 @@
   В случае деления на ноль, выбрасывает исключение `ZeroDivisionError` и логирует сообщение об ошибке.
 -   `def convert_currency(transaction: Dict[str, Any]) -> float` :   Конвертирует сумму транзакции в рубли.
 -     `def read_json_file(file_path: str) -> List[Dict[str, Any]]` :  Читает JSON-файл и возвращает список словарей с данными о финансовых транзакциях.
-
-
+-     `def search_transactions(transactions, search_string)' : Функция для поиска транзакций по описанию.
+-     `def count_transaction_categories(transactions, categories)` : Функция для подсчета количества транзакций по категориям.
 
 ## Установка
 
