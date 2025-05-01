@@ -6,12 +6,24 @@
 
 Проект состоит из следующих функций:
 
--   `def get_mask_card_number(card_number: Union[str]) -> Union[str]`: Маскирует номер карты, показывая только первые 6 и последние 4 цифры.
+`def get_mask_card_number(card_number: Union[str]) -> Union[str]`: Маскирует номер карты, показывая только первые 6 и последние 4 цифры.
 -   `def get_mask_account(account_number: Union[str]) -> Union[str]:`: Маскирует номер счета, показывая только последние 4 цифры.
 -   `def mask_account_card(input_string: str) -> str`: Обрабатывает информацию о карте или счете клиента и маскирует номер.
 -   `def get_date(date_string: str) -> str:`: Преобразует дату в формат 'ДД.ММ.ГГГГ'.
 -   `def filter_by_state(transactions: List[Dict], state: str = "EXECUTED") -> List[Dict]`: Фильтрует список словарей по значению ключа 'state'.
 -   `def sort_by_date(transactions: List[Dict], descending: bool = True) -> List[Dict]`: Сортирует список словарей по дате.
+-   `def filter_by_currency(transactions: List[Dict], currency: str) -> Generator[Dict, None, None]`: Фильтрует транзакции по заданной валюте.
+-   `def transaction_descriptions(transactions: List[Dict]) -> Generator[str, None, None]`: Генерирует описания транзакций по очереди.
+-   `def card_number_generator(start: int, stop: int) -> Generator[str, None, None]`: Генерирует номера банковских карт в формате XXXX XXXX XXXX XXXX.
+-      '**add(a: int, b: int) -> int**' :  Принимает два целых числа и возвращает их сумму. Логирует сообщение "add ok" при успешном выполнении.
+-     **divide(a: int, b: int) -> float**:  - **divide(a: int, b: int) -> float**: 
+  Принимает два целых числа и возвращает результат деления первого на второе.
+  Логирует сообщение "divide ok" при успешном выполнении.
+  В случае деления на ноль, выбрасывает исключение `ZeroDivisionError` и логирует сообщение об ошибке.
+-   `def convert_currency(transaction: Dict[str, Any]) -> float` :   Конвертирует сумму транзакции в рубли.
+-     `def read_json_file(file_path: str) -> List[Dict[str, Any]]` :  Читает JSON-файл и возвращает список словарей с данными о финансовых транзакциях.
+-     `def search_transactions(transactions, search_string)' : Функция для поиска транзакций по описанию.
+-     `def count_transaction_categories(transactions, categories)` : Функция для подсчета количества транзакций по категориям.
 
 ## Установка
 
